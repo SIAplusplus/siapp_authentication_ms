@@ -32,6 +32,8 @@ const signJWT = (user: IUser, callback: (error: Error | null, token: string | nu
             }
         );
     } catch (error) {
+        //logging.error(NAMESPACE, error.message, error);
+        //callback(error, null);
         console.log('Error');
     }
 };

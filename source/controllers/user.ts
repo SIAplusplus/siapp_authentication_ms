@@ -4,6 +4,7 @@ import bcryptjs from 'bcryptjs';
 import logging from '../config/logging';
 import User from '../models/user';
 import signJWT from '../functions/signJTW';
+import user from '../interfaces/user';
 
 const NAMESPACE = 'User';
 
@@ -114,4 +115,41 @@ const getAllUsers = (req: Request, res: Response, next: NextFunction) => {
         });
 };
 
-export default { validateToken, register, login, getAllUsers };
+const getUsers = (req: Request, res: Response, next: NextFunction) => {
+    const userList = req.body;
+    //let userInfo: user[][] = []
+    console.log(userList);
+    const userIdList = userList.map((element) => { return element.StudentId })
+    console.log(userIdList);
+    User.find({
+        '_id': { $in: userIdList}
+    }, function(err, docs){
+         console.log(docs);
+    }).exec().then((users) => {
+            return res.status(200).json(users);
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                message: error.message,
+                error
+            });
+        });
+    /*User.find()
+        .select('-password')
+        .exec()
+        .then(async (users) => {
+            for (const element of userList){
+                let userr = await User.findById(element.doc)
+                userInfo.push(userr)
+            }
+            return res.status(200).json(userInfo);
+        })
+        .catch((error) => {
+            return res.status(500).json({
+                message: error.message,
+                error
+            });
+        });*/
+};
+
+export default { validateToken, register, login, getAllUsers, getUsers };
