@@ -7,4 +7,5 @@ export default interface IUser extends Document {
     name: string;
     surname: string;
     doc: String;
+    career: String;
 }

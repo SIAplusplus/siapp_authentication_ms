@@ -16,7 +16,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const register = (req: Request, res: Response, next: NextFunction) => {
-    let { username, password, type, name, surname, doc } = req.body;
+    let { username, password, type, name, surname, doc, career } = req.body;
 
     bcryptjs.hash(password, 10, (hashError, hash) => {
         if (hashError) {
@@ -33,6 +33,7 @@ const register = (req: Request, res: Response, next: NextFunction) => {
             name,
             surname,
             doc,
+            career,
             password: hash
         });
 

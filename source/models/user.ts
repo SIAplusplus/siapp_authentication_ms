@@ -8,7 +8,8 @@ const UserSchema: Schema = new Schema(
         type: { type: String, required: true },
         name: { type: String, required: true },
         surname: { type: String, required: true },
-        doc: { type: String, required: true, unique: true  }
+        doc: { type: String, required: true, unique: true  },
+        career: { type: String, required: true, unique: true  }
     },
     {
         timestamps: true
