@@ -36,6 +36,10 @@ router.use(function (req, res, next) {
 /** Parse the body of the request */
 router.use(body_parser_1.default.urlencoded({ extended: true }));
 router.use(body_parser_1.default.json());
+var cors = require('cors');
+router.use(cors({
+    origin: '*'
+}));
 /** Rules of our API */
 router.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

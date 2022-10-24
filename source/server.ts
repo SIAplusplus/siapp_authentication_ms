@@ -42,6 +42,12 @@ router.use((req, res, next) => {
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
+const cors = require('cors');
+
+router.use(cors({
+    origin: '*'
+}))
+
 /** Rules of our API */
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
