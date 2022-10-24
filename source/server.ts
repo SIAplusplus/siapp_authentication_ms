@@ -9,6 +9,12 @@ import mongoose from 'mongoose';
 const NAMESPACE = 'Server';
 const router = express();
 
+
+const httpServer = http.createServer(router);
+
+httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`));
+
+
 /** Connect to Mongo */
 mongoose
     .connect(config.mongo.url, config.mongo.options)
@@ -60,7 +66,3 @@ router.use((req, res, next) => {
         message: error.message
     });
 });
-
-const httpServer = http.createServer(router);
-
-httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`));
