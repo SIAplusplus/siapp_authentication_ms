@@ -124,7 +124,7 @@ const getUsers = (req: Request, res: Response, next: NextFunction) => {
     const userList = req.body;
     //let userInfo: user[][] = []
     console.log(userList);
-    const userIdList = userList.map((element) => { return element.StudentId })
+    const userIdList = userList.map((element: { StudentId: any; }) => { return element.StudentId })
     console.log(userIdList);
     User.find({
         '_id': { $in: userIdList}
@@ -139,22 +139,6 @@ const getUsers = (req: Request, res: Response, next: NextFunction) => {
                 error
             });
         });
-    /*User.find()
-        .select('-password')
-        .exec()
-        .then(async (users) => {
-            for (const element of userList){
-                let userr = await User.findById(element.doc)
-                userInfo.push(userr)
-            }
-            return res.status(200).json(userInfo);
-        })
-        .catch((error) => {
-            return res.status(500).json({
-                message: error.message,
-                error
-            });
-        });*/
 };
 
 export default { validateToken, register, login, getAllUsers, getUsers };
