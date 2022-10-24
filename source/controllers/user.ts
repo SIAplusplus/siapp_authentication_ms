@@ -61,6 +61,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
         .exec()
         .then((users) => {
             if (users.length !== 1) {
+                console.log("1")
                 return res.status(401).json({
                     message: 'Unauthorized'
                 });
@@ -85,6 +86,10 @@ const login = (req: Request, res: Response, next: NextFunction) => {
                                 user: users[0]
                             });
                         }
+                    });
+                } else {
+                    return res.status(401).json({
+                        message: 'Password Mismatch'
                     });
                 }
             });
