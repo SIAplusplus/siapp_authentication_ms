@@ -18,6 +18,6 @@ RUN npm install nodemon
 # Bundle app source
 COPY . /usr/src/app
 
-CMD bash -c "npm run dev"
+CMD bash -c "npx ts-node ./source/server.ts"
 
 
