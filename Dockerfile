@@ -17,7 +17,7 @@ RUN npm install nodemon
 # Bundle app source
 COPY . /usr/src/app
 
-EXPOSE 8080
+EXPOSE 1337
 CMD bash -c "npm run dev"
 
 
