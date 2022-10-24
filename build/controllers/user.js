@@ -133,21 +133,5 @@ var getUsers = function (req, res, next) {
             error: error
         });
     });
-    /*User.find()
-        .select('-password')
-        .exec()
-        .then(async (users) => {
-            for (const element of userList){
-                let userr = await User.findById(element.doc)
-                userInfo.push(userr)
-            }
-            return res.status(200).json(userInfo);
-        })
-        .catch((error) => {
-            return res.status(500).json({
-                message: error.message,
-                error
-            });
-        });*/
 };
 exports.default = { validateToken: validateToken, register: register, login: login, getAllUsers: getAllUsers, getUsers: getUsers };
