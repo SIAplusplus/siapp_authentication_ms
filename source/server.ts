@@ -48,7 +48,7 @@ router.use(cors({
     origin: '*'
 }))
 
-/** Rules of our API */
+/** Rules of our API 
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -60,6 +60,7 @@ router.use((req, res, next) => {
 
     next();
 });
+*/
 
 /** Routes go here */
 router.use('/users', userRoutes);
