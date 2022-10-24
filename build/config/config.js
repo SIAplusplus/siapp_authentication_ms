@@ -24,7 +24,7 @@ var MONGO = {
     options: MONGO_OPTIONS,
     url: "mongodb+srv://".concat(MONGO_USERNAME, ":").concat(MONGO_PASSWORD, "@").concat(MONGO_HOST)
 };
-var SERVER_HOSTNAME = '0.0.0.0';
+var SERVER_HOSTNAME = 'localhost';
 var SERVER_PORT = '1337';
 var SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3600;
 var SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIssuer';

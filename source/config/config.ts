@@ -24,7 +24,7 @@ const MONGO = {
     url: `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}`
 };
 
-const SERVER_HOSTNAME = '0.0.0.0';
+const SERVER_HOSTNAME = 'localhost';
 const SERVER_PORT = '1337';
 const SERVER_TOKEN_EXPIRETIME = process.env.SERVER_TOKEN_EXPIRETIME || 3600;
 const SERVER_TOKEN_ISSUER = process.env.SERVER_TOKEN_ISSUER || 'coolIssuer';
