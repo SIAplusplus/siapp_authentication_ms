@@ -98,7 +98,9 @@ var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0,
                 if (!loginState) {
                     console.log("No user in ldap");
                     return [2 /*return*/, res.status(401).json({
-                            message: 'User not found in LDAP'
+                            message: 'User not found in LDAP',
+                            token: '',
+                            user: ''
                         })];
                 }
                 else {
@@ -108,13 +110,17 @@ var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0,
                         if (users.length !== 1) {
                             console.log("1");
                             return res.status(401).json({
-                                message: 'Unauthorized'
+                                message: 'Unauthorized',
+                                token: '',
+                                user: ''
                             });
                         }
                         bcryptjs_1.default.compare(password, users[0].password, function (error, result) {
                             if (error) {
                                 return res.status(401).json({
-                                    message: 'Password Mismatch'
+                                    message: 'Password Mismatch',
+                                    token: '',
+                                    user: ''
                                 });
                             }
                             else if (result) {
@@ -136,7 +142,9 @@ var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0,
                             }
                             else {
                                 return res.status(401).json({
-                                    message: 'Password Mismatch'
+                                    message: 'Password Mismatch',
+                                    token: '',
+                                    user: ''
                                 });
                             }
                         });

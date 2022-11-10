@@ -63,7 +63,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     if(!loginState){
         console.log("No user in ldap")
         return res.status(401).json({
-            message: 'User not found in LDAP'
+            message: 'User not found in LDAP',
+            token: '',
+            user: ''
         });
     } else {
     User.find({ username })
@@ -72,14 +74,18 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             if (users.length !== 1) {
                 console.log("1")
                 return res.status(401).json({
-                    message: 'Unauthorized'
+                    message: 'Unauthorized',
+                    token: '',
+                    user: ''
                 });
             }
 
             bcryptjs.compare(password, users[0].password, (error, result) => {
                 if (error) {
                     return res.status(401).json({
-                        message: 'Password Mismatch'
+                        message: 'Password Mismatch',
+                        token: '',
+                        user: ''
                     });
                 } else if (result) {
                     signJWT(users[0], (_error, token) => {
@@ -98,7 +104,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                     });
                 } else {
                     return res.status(401).json({
-                        message: 'Password Mismatch'
+                        message: 'Password Mismatch',
+                        token: '',
+                        user: ''
                     });
                 }
             });
