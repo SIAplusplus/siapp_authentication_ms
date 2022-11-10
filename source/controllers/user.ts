@@ -64,8 +64,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
         console.log("No user in ldap")
         return res.status(401).json({
             message: 'User not found in LDAP',
-            token: '',
-            user: ''
         });
     } else {
     User.find({ username })
@@ -75,8 +73,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 console.log("1")
                 return res.status(401).json({
                     message: 'Unauthorized',
-                    token: '',
-                    user: ''
                 });
             }
 
@@ -84,8 +80,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 if (error) {
                     return res.status(401).json({
                         message: 'Password Mismatch',
-                        token: '',
-                        user: ''
                     });
                 } else if (result) {
                     signJWT(users[0], (_error, token) => {
