@@ -4,7 +4,7 @@ let ldapAuthenticate = async (body) => {
     console.log("body of ldap"+body.username)
     try {
         return await authenticate({
-            ldapOpts: { url: 'ldap://localhost' },
+            ldapOpts: { url: 'ldap://34.71.77.79' },
             adminDn: 'cn=admin,dc=arqsoft,dc=unal,dc=edu,dc=co',
             adminPassword: 'admin',
             verifyUserExists: true,

@@ -47,7 +47,7 @@ var ldapAuthenticate = function (body) { return __awaiter(void 0, void 0, void 0
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, (0, ldap_authentication_1.authenticate)({
-                        ldapOpts: { url: 'ldap://localhost' },
+                        ldapOpts: { url: 'ldap://34.71.77.79' },
                         adminDn: 'cn=admin,dc=arqsoft,dc=unal,dc=edu,dc=co',
                         adminPassword: 'admin',
                         verifyUserExists: true,
