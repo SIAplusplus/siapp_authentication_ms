@@ -5,7 +5,7 @@ import logging from '../config/logging';
 import User from '../models/user';
 import signJWT from '../functions/signJTW';
 import user from '../interfaces/user';
-
+import ldapAsyncAuthenticate from '../functions/ldap';
 const NAMESPACE = 'User';
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
@@ -54,9 +54,18 @@ const register = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-const login = (req: Request, res: Response, next: NextFunction) => {
+
+
+const login = async (req: Request, res: Response, next: NextFunction) => {
     let { username, password } = req.body;
 
+    let loginState = await ldapAsyncAuthenticate(req.body)
+    if(!loginState){
+        console.log("No user in ldap")
+        return res.status(401).json({
+            message: 'User not found in LDAP'
+        });
+    } else {
     User.find({ username })
         .exec()
         .then((users) => {
@@ -100,6 +109,7 @@ const login = (req: Request, res: Response, next: NextFunction) => {
                 error: err
             });
         });
+    }
 };
 
 const getAllUsers = (req: Request, res: Response, next: NextFunction) => {

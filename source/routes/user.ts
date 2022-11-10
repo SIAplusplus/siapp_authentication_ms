@@ -10,4 +10,4 @@ router.post('/login', controller.login);
 router.get('/get/all', controller.getAllUsers);
 router.post('/get/users', controller.getUsers);
 
-export = router;
+export = router
