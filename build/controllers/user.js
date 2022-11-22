@@ -44,7 +44,6 @@ var bcryptjs_1 = __importDefault(require("bcryptjs"));
 var logging_1 = __importDefault(require("../config/logging"));
 var user_1 = __importDefault(require("../models/user"));
 var signJTW_1 = __importDefault(require("../functions/signJTW"));
-var ldap_1 = __importDefault(require("../functions/ldap"));
 var NAMESPACE = 'User';
 var validateToken = function (req, res, next) {
     logging_1.default.info(NAMESPACE, 'Token validated, user authorized.');
@@ -87,71 +86,66 @@ var register = function (req, res, next) {
     });
 };
 var login = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, username, password, loginState;
+    var _a, username, password;
     return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = req.body, username = _a.username, password = _a.password;
-                return [4 /*yield*/, (0, ldap_1.default)(req.body)];
-            case 1:
-                loginState = _b.sent();
-                if (!loginState) {
-                    console.log("No user in ldap");
-                    return [2 /*return*/, res.status(401).json({
-                            message: 'User not found in LDAP',
-                        })];
-                }
-                else {
-                    user_1.default.find({ username: username })
-                        .exec()
-                        .then(function (users) {
-                        if (users.length !== 1) {
-                            console.log("1");
-                            return res.status(401).json({
-                                message: 'Unauthorized',
-                            });
-                        }
-                        bcryptjs_1.default.compare(password, users[0].password, function (error, result) {
-                            if (error) {
-                                return res.status(401).json({
-                                    message: 'Password Mismatch',
-                                });
-                            }
-                            else if (result) {
-                                (0, signJTW_1.default)(users[0], function (_error, token) {
-                                    if (_error) {
-                                        return res.status(500).json({
-                                            message: _error.message,
-                                            error: _error
-                                        });
-                                    }
-                                    else if (token) {
-                                        return res.status(200).json({
-                                            message: 'Auth successful',
-                                            token: token,
-                                            user: users[0]
-                                        });
-                                    }
-                                });
-                            }
-                            else {
-                                return res.status(401).json({
-                                    message: 'Password Mismatch',
-                                    token: '',
-                                    user: ''
-                                });
-                            }
-                        });
-                    })
-                        .catch(function (err) {
-                        console.log(err);
-                        res.status(500).json({
-                            error: err
-                        });
+        _a = req.body, username = _a.username, password = _a.password;
+        /*
+        let loginState = await ldapAsyncAuthenticate(req.body)
+        if(!loginState){
+            console.log("No user in ldap")
+            return res.status(401).json({
+                message: 'User not found in LDAP',
+            });
+        } else {
+            */
+        user_1.default.find({ username: username })
+            .exec()
+            .then(function (users) {
+            if (users.length !== 1) {
+                console.log("1");
+                return res.status(401).json({
+                    message: 'Unauthorized',
+                });
+            }
+            bcryptjs_1.default.compare(password, users[0].password, function (error, result) {
+                if (error) {
+                    return res.status(401).json({
+                        message: 'Password Mismatch',
                     });
                 }
-                return [2 /*return*/];
-        }
+                else if (result) {
+                    (0, signJTW_1.default)(users[0], function (_error, token) {
+                        if (_error) {
+                            return res.status(500).json({
+                                message: _error.message,
+                                error: _error
+                            });
+                        }
+                        else if (token) {
+                            return res.status(200).json({
+                                message: 'Auth successful',
+                                token: token,
+                                user: users[0]
+                            });
+                        }
+                    });
+                }
+                else {
+                    return res.status(401).json({
+                        message: 'Password Mismatch',
+                        token: '',
+                        user: ''
+                    });
+                }
+            });
+        })
+            .catch(function (err) {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+        return [2 /*return*/];
     });
 }); };
 var getAllUsers = function (req, res, next) {

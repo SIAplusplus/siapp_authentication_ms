@@ -58,7 +58,7 @@ const register = (req: Request, res: Response, next: NextFunction) => {
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
     let { username, password } = req.body;
-
+    /*
     let loginState = await ldapAsyncAuthenticate(req.body)
     if(!loginState){
         console.log("No user in ldap")
@@ -66,6 +66,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             message: 'User not found in LDAP',
         });
     } else {
+        */
     User.find({ username })
         .exec()
         .then((users) => {
@@ -111,7 +112,6 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
                 error: err
             });
         });
-    }
 };
 
 const getAllUsers = (req: Request, res: Response, next: NextFunction) => {
